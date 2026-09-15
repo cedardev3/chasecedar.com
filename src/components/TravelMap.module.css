@@ -1,0 +1,58 @@
+.mapShell {
+  width: 100%;
+}
+
+.travelMap {
+  width: 100%;
+  height: auto;
+  display: block;
+  background: linear-gradient(180deg, #dfece4 0%, #c9ddd2 100%);
+  border-radius: 1.25rem;
+}
+
+.country {
+  fill: #8aa897;
+  stroke: #efe6d6;
+  stroke-width: 0.4;
+  transition: fill 160ms ease;
+}
+
+.visited {
+  fill: #b85a2a;
+  cursor: pointer;
+}
+
+.visited:hover,
+.visited:focus {
+  fill: #1f3d32;
+  outline: none;
+}
+
+.caption {
+  margin-top: 0.85rem;
+  font-size: 0.95rem;
+  color: color-mix(in oklab, #132019 70%, transparent);
+}
+
+.status {
+  padding: 2rem;
+  text-align: center;
+}
+
+.visitedList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem 0.65rem;
+  list-style: none;
+  padding: 1rem 0 0;
+  margin: 0;
+}
+
+.visitedList li {
+  font-size: 0.82rem;
+  letter-spacing: 0.02em;
+  padding: 0.35rem 0.65rem;
+  border: 1px solid rgba(19, 32, 25, 0.12);
+  border-radius: 999px;
+  background: #fffdf8;
+}
