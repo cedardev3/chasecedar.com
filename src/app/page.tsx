@@ -2,10 +2,10 @@ import Image from "next/image";
 import TravelMap from "@/components/TravelMap";
 
 const languages = [
-  { name: "English", level: "Highly proficient", width: "100%" },
-  { name: "Spanish", level: "Intermediate", width: "62%" },
-  { name: "French", level: "Beginner", width: "28%" },
-  { name: "Japanese", level: "Just starting", width: "12%" },
+  { name: "English", level: "This is the easy one", width: "100%" },
+  { name: "Spanish", level: "I can get around", width: "62%" },
+  { name: "French", level: "Still early", width: "28%" },
+  { name: "Japanese", level: "Started from zero", width: "12%" },
 ];
 
 export default function Home() {
@@ -25,11 +25,11 @@ export default function Home() {
           <div className="hero-copy">
             <p className="brand animate-rise">Chase Cedar</p>
             <h1 className="animate-rise-delay">
-              Ideas were never the shortage. Follow-through was.
+              I never ran out of ideas. I ran out of people and patience.
             </h1>
             <p className="lede animate-rise-delay-2">
-              Now AI is the force multiplier that lets me ship the things I used
-              to only sketch in my head.
+              AI is the first tool that lets me actually finish the stuff I used
+              to abandon halfway.
             </p>
             <div className="hero-actions animate-rise-delay-2">
               <a
@@ -41,7 +41,7 @@ export default function Home() {
                 LinkedIn
               </a>
               <a className="btn ghost" href="#work">
-                See what I&apos;m building
+                Projects
               </a>
             </div>
           </div>
@@ -49,19 +49,21 @@ export default function Home() {
       </section>
 
       <section className="section" id="story">
-        <p className="eyebrow">The shift</p>
-        <h2>Always full of ideas. Rarely enough hands or attention span.</h2>
+        <p className="eyebrow">About</p>
+        <h2>Too many ideas, not enough follow through.</h2>
         <p>
-          For years I collected concepts faster than I could finish them —
-          manpower was scarce, and my attention jumped to the next spark. AI
-          changed the math. I still think big, but now I can actually build:
-          prototypes, products, and whole systems that used to need a team.
+          I have always been the person with a notebook full of things I wanted
+          to make. The problem was never imagination. I did not have a team, and
+          I do not stick with one thing for years if I can help it. So a lot of
+          it stayed in my head. AI changed that for me. It feels like extra
+          manpower, which means I can sit down and build things I would have
+          given up on before.
         </p>
       </section>
 
       <section className="section" id="work">
-        <p className="eyebrow">Building</p>
-        <h2>Projects that show the range.</h2>
+        <p className="eyebrow">Projects</p>
+        <h2>A few things I have been working on.</h2>
         <div className="project-stack">
           <article>
             <h3>
@@ -75,8 +77,8 @@ export default function Home() {
               </a>
             </h3>
             <p>
-              Something I contribute to — a live product where collaboration and
-              shipping matter day to day.
+              I was one of the first people they hired. I still work on it a
+              lot, just not as my main job anymore.
             </p>
           </article>
           <article>
@@ -91,8 +93,8 @@ export default function Home() {
               </a>
             </h3>
             <p>
-              An idea I conceptualized over five years ago. With AI, I can finally
-              design and build it end to end on my own.
+              I came up with this more than five years ago and never had a way
+              to build it. I am doing the whole thing myself now.
             </p>
           </article>
           <article>
@@ -107,9 +109,8 @@ export default function Home() {
               </a>
             </h3>
             <p>
-              Ten large economies in USD — drill from the global mix into each
-              country&apos;s industries, using official national sources where
-              available.
+              A clearer look at GDP and income in US dollars, with a way to
+              click into what each country actually produces.
             </p>
           </article>
         </div>
@@ -117,18 +118,18 @@ export default function Home() {
 
       <section className="section" id="markets">
         <p className="eyebrow">Markets</p>
-        <h2>Amateur investor. Serious curiosity.</h2>
+        <h2>I watch stocks for fun. A lot of them.</h2>
         <p>
-          I follow business and the macro economy closely, and I track thousands
-          of stocks listed in Canada and the United States — not as a tipster,
-          but as someone who likes understanding how capital, companies, and
-          cycles actually move.
+          I am an amateur investor. I spend a lot of time on business and the
+          bigger economic picture, and I have gone through thousands of stocks
+          listed in Canada and the US. I am not handing out tips. I just like
+          knowing how companies and cycles actually work.
         </p>
       </section>
 
       <section className="section" id="languages">
         <p className="eyebrow">Languages</p>
-        <h2>How I speak with the world.</h2>
+        <h2>What I can speak, roughly.</h2>
         <div className="lang-list">
           {languages.map((lang) => (
             <div className="lang-bar" key={lang.name}>
@@ -143,18 +144,18 @@ export default function Home() {
       </section>
 
       <section className="section" id="life">
-        <p className="eyebrow">Off the screen</p>
-        <h2>Sports, camping, and getting outside.</h2>
+        <p className="eyebrow">Outside</p>
+        <h2>I would rather be moving than sitting still.</h2>
         <p>
-          I play hockey, soccer, tennis, and dozens of other sports. When I&apos;m
-          not competing, I&apos;m camping, exploring, and chasing the next trail,
-          rink, or pitch.
+          Hockey, soccer, tennis, and a pile of other sports. I also like
+          camping and wandering around somewhere new. If I am not at a desk I
+          am probably outside.
         </p>
       </section>
 
       <section className="section map-section" id="travel">
         <p className="eyebrow">Travel</p>
-        <h2>Places I&apos;ve been.</h2>
+        <h2>Places I have actually been.</h2>
         <p>
           Canada (4 provinces), USA (8 states), Mexico (4 provinces), Costa Rica,
           Colombia, Bolivia, Peru, Chile, Thailand, Japan, Italy, Malta, Greece,

@@ -154,8 +154,8 @@ export default function TravelMap() {
           </span>
         ) : (
           <span>
-            Hover a highlighted country · Malta visited (too small for this map
-            scale)
+            Hover a country in orange. Malta is on the list too, just too tiny
+            to show up here.
           </span>
         )}
       </div>

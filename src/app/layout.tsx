@@ -15,7 +15,7 @@ const body = Outfit({
 export const metadata: Metadata = {
   title: "Chase Cedar",
   description:
-    "Builder, investor, traveler — ideas turned into real projects with AI as a force multiplier.",
+    "Personal site for Chase Cedar. Projects, markets, languages, sports, and travel.",
 };
 
 export default function RootLayout({
