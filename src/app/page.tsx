@@ -61,7 +61,7 @@ export default function Home() {
 
       <section className="section" id="work">
         <p className="eyebrow">Building</p>
-        <h2>Two projects that show the range.</h2>
+        <h2>Projects that show the range.</h2>
         <div className="project-stack">
           <article>
             <h3>
@@ -93,6 +93,23 @@ export default function Home() {
             <p>
               An idea I conceptualized over five years ago. With AI, I can finally
               design and build it end to end on my own.
+            </p>
+          </article>
+          <article>
+            <h3>
+              <a
+                className="site-link"
+                href="https://gdpincome.com"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                gdpincome.com
+              </a>
+            </h3>
+            <p>
+              Ten large economies in USD — drill from the global mix into each
+              country&apos;s industries, using official national sources where
+              available.
             </p>
           </article>
         </div>
