@@ -1,0 +1,9 @@
+User-agent: *
+Disallow: /flight-centre
+Disallow: /flight-centre/
+Disallow: /flight-centre.html
+
+User-agent: Googlebot
+Disallow: /flight-centre
+Disallow: /flight-centre/
+Disallow: /flight-centre.html

@@ -1,45 +1,32 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState, type MouseEvent } from "react";
 import { geoNaturalEarth1, geoPath } from "d3-geo";
 import { feature } from "topojson-client";
 import type { FeatureCollection, Geometry } from "geojson";
 import type { Topology, GeometryCollection } from "topojson-specification";
+import {
+  citiesForMapCountry,
+  mapNameToCityCountry,
+  visitedCities,
+  visitedCountryNames,
+} from "@/data/cities";
 import styles from "./TravelMap.module.css";
 
-const VISITED_IDS = new Set([
-  "124",
-  "840",
-  "484",
-  "188",
-  "170",
-  "068",
-  "604",
-  "152",
-  "764",
-  "392",
-  "380",
-  "300",
-  "276",
-  "040",
-  "756",
-  "056",
-  "528",
-  "036",
-]);
+const visitedCityCountries = new Set(
+  visitedCities.map((city) => city.country),
+);
 
-const DETAIL: Record<string, string> = {
-  Canada: "4 provinces",
-  "United States of America": "8 states",
-  Mexico: "4 provinces",
-};
+const VISITED_NAMES = new Set(
+  Object.entries(mapNameToCityCountry)
+    .filter(([, country]) => visitedCityCountries.has(country))
+    .map(([mapName]) => mapName),
+);
 
 type CountryProps = { name: string };
 
-function isVisited(id: string | number | undefined) {
-  if (id === undefined) return false;
-  const raw = String(id);
-  return VISITED_IDS.has(raw) || VISITED_IDS.has(raw.padStart(3, "0"));
+function isVisited(name: string | undefined) {
+  return Boolean(name && VISITED_NAMES.has(name));
 }
 
 export default function TravelMap() {
@@ -48,7 +35,27 @@ export default function TravelMap() {
     CountryProps
   > | null>(null);
   const [active, setActive] = useState<string | null>(null);
+  const [activeCity, setActiveCity] = useState<string | null>(null);
+  const [tooltip, setTooltip] = useState<{ x: number; y: number } | null>(
+    null,
+  );
   const [error, setError] = useState<string | null>(null);
+  const shellRef = useRef<HTMLDivElement>(null);
+
+  function moveTooltip(event: MouseEvent<Element>) {
+    const rect = shellRef.current?.getBoundingClientRect();
+    if (!rect) return;
+    setTooltip({
+      x: event.clientX - rect.left,
+      y: event.clientY - rect.top,
+    });
+  }
+
+  function showCountry(name: string, event?: MouseEvent<Element>) {
+    if (!isVisited(name) && name !== "Malta") return;
+    setActive(name);
+    if (event) moveTooltip(event);
+  }
 
   useEffect(() => {
     let cancelled = false;
@@ -76,7 +83,7 @@ export default function TravelMap() {
     };
   }, []);
 
-  const { path, width, height } = useMemo(() => {
+  const { path, projection, width, height } = useMemo(() => {
     const width = 960;
     const height = 460;
     const projection = geoNaturalEarth1().fitSize(
@@ -85,6 +92,7 @@ export default function TravelMap() {
     );
     return {
       path: geoPath(projection),
+      projection,
       width,
       height,
     };
@@ -98,74 +106,135 @@ export default function TravelMap() {
     return <p className={styles.status}>Loading map…</p>;
   }
 
-  const visitedNames = collection.features
-    .filter((f) => isVisited(f.id))
-    .map((f) => f.properties.name)
-    .sort((a, b) => a.localeCompare(b));
+  const orderedFeatures = [...collection.features].sort((a, b) => {
+    const aVisited = isVisited(a.properties.name) ? 1 : 0;
+    const bVisited = isVisited(b.properties.name) ? 1 : 0;
+    return aVisited - bVisited;
+  });
 
-  const listNames = [...visitedNames, "Malta"].sort((a, b) =>
-    a.localeCompare(b),
-  );
+  const tooltipCountry = activeCity
+    ? visitedCities.find(
+        (city) => `${city.name}, ${city.country}` === activeCity,
+      )?.country
+    : active
+      ? mapNameToCityCountry[active]
+      : undefined;
+  const tooltipCities = active
+    ? citiesForMapCountry(active)
+    : tooltipCountry
+      ? visitedCities
+          .filter((city) => city.country === tooltipCountry)
+          .map((city) => city.name)
+      : [];
+  const tooltipTitle = active || tooltipCountry || "";
 
   return (
-    <div className={`${styles.mapShell} map-shell`}>
+    <div ref={shellRef} className={`${styles.mapShell} map-shell`}>
       <svg
         viewBox={`0 0 ${width} ${height}`}
         role="img"
         aria-label="World map highlighting countries Chase has visited"
         className={styles.travelMap}
+        onMouseLeave={() => {
+          setActive(null);
+          setActiveCity(null);
+          setTooltip(null);
+        }}
       >
-        {collection.features.map((f) => {
+        {orderedFeatures.map((f, index) => {
           const name = f.properties.name;
-          const visited = isVisited(f.id);
+          const visited = isVisited(name);
           const d = path(f);
           if (!d) return null;
 
           return (
             <path
-              key={String(f.id)}
+              key={`${index}-${name || "country"}`}
               d={d}
               className={
                 visited ? `${styles.country} ${styles.visited}` : styles.country
               }
-              onMouseEnter={() => visited && setActive(name)}
-              onMouseLeave={() => setActive(null)}
-              onFocus={() => visited && setActive(name)}
-              onBlur={() => setActive(null)}
+              onMouseEnter={(event) => showCountry(name, event)}
+              onMouseMove={(event) => visited && moveTooltip(event)}
+              onFocus={() => showCountry(name)}
               tabIndex={visited ? 0 : undefined}
             >
               <title>
                 {visited
-                  ? DETAIL[name]
-                    ? `${name} (${DETAIL[name]})`
-                    : name
+                  ? [name, ...citiesForMapCountry(name)].join(", ")
                   : name}
               </title>
             </path>
           );
         })}
+        {visitedCities.map((city) => {
+          const point = projection([city.lon, city.lat]);
+          if (!point) return null;
+          const [x, y] = point;
+          const label = `${city.name}, ${city.country}`;
+          const mapName =
+            Object.entries(mapNameToCityCountry).find(
+              ([, country]) => country === city.country,
+            )?.[0] ?? city.country;
+
+          return (
+            <circle
+              key={label}
+              cx={x}
+              cy={y}
+              r={3.2}
+              className={styles.cityDot}
+              onMouseEnter={(event) => {
+                setActiveCity(label);
+                showCountry(mapName, event);
+              }}
+              onMouseMove={moveTooltip}
+              onFocus={() => {
+                setActiveCity(label);
+                showCountry(mapName);
+              }}
+              tabIndex={0}
+            >
+              <title>{label}</title>
+            </circle>
+          );
+        })}
       </svg>
 
+      {tooltip && tooltipTitle && tooltipCities.length > 0 ? (
+        <div
+          className={styles.tooltip}
+          style={{ left: tooltip.x, top: tooltip.y }}
+        >
+          <strong>{tooltipTitle}</strong>
+          <ul>
+            {tooltipCities.map((city) => (
+              <li
+                key={city}
+                className={
+                  activeCity?.startsWith(`${city},`) ? styles.tooltipActive : undefined
+                }
+              >
+                {city}
+              </li>
+            ))}
+          </ul>
+        </div>
+      ) : null}
+
       <div className={styles.caption} aria-live="polite">
-        {active ? (
+        {tooltipTitle && tooltipCities.length > 0 ? (
           <span>
-            {active}
-            {DETAIL[active] ? ` · ${DETAIL[active]}` : ""}
+            {tooltipTitle}: {tooltipCities.join(", ")}
           </span>
         ) : (
-          <span>
-            Hover a country in orange. Malta is on the list too, just too tiny
-            to show up here.
-          </span>
+          <span>Hover or focus an orange country to see all the cities visited in each country.</span>
         )}
       </div>
 
       <ul className={styles.visitedList}>
-        {listNames.map((name) => (
-          <li key={name}>
-            {name}
-            {DETAIL[name] ? ` (${DETAIL[name]})` : ""}
-          </li>
+        {visitedCountryNames.map((name) => (
+          <li key={name}>{name}</li>
         ))}
       </ul>
     </div>

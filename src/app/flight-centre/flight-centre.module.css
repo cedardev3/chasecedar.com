@@ -1,0 +1,154 @@
+.page {
+  min-height: 100vh;
+  background: var(--foam);
+  color: var(--ink);
+}
+
+.sheet {
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 2.75rem 1.4rem 4rem;
+}
+
+.header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1rem 2rem;
+  padding-bottom: 1.4rem;
+  border-bottom: 2px solid var(--bark);
+}
+
+.pageName {
+  margin: 0;
+  font-family: var(--font-display), serif;
+  font-size: clamp(2rem, 5vw, 2.8rem);
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+.person {
+  margin: 0.45rem 0 0;
+  font-size: 1.05rem;
+}
+
+.contact {
+  margin: 0;
+  display: grid;
+  gap: 0.2rem;
+  font-size: 0.95rem;
+  text-align: right;
+}
+
+.blank {
+  min-height: 1.15em;
+  border-bottom: 1px solid var(--line);
+  min-width: 10rem;
+}
+
+.section {
+  margin-top: 1.85rem;
+}
+
+.section h2 {
+  margin: 0 0 0.85rem;
+  font-size: 0.78rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--moss);
+}
+
+.summary {
+  margin: 0 0 0.85rem;
+  line-height: 1.6;
+}
+
+.summary:last-child {
+  margin-bottom: 0;
+}
+
+.entry {
+  padding: 0.9rem 0;
+  border-top: 1px solid var(--line);
+}
+
+.entryTop {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.5rem 1rem;
+}
+
+.role {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+.meta {
+  margin: 0.25rem 0 0;
+  color: color-mix(in oklab, var(--ink) 70%, transparent);
+}
+
+.dates {
+  margin: 0;
+  font-size: 0.92rem;
+  color: color-mix(in oklab, var(--ink) 65%, transparent);
+}
+
+.details {
+  margin: 0.65rem 0 0;
+  padding-left: 1.1rem;
+  line-height: 1.55;
+}
+
+.details li {
+  min-height: 1.3em;
+}
+
+.skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem 0.6rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.skills li {
+  min-width: 7rem;
+  min-height: 2rem;
+  padding: 0.35rem 0.7rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+}
+
+.langList {
+  display: grid;
+  gap: 0.85rem;
+}
+
+.travelNote {
+  margin: 0 0 1rem;
+  line-height: 1.65;
+}
+
+@media (max-width: 640px) {
+  .contact {
+    text-align: left;
+    width: 100%;
+  }
+
+  .entryTop {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media print {
+  .page {
+    background: white;
+  }
+
+  .sheet {
+    padding: 0;
+  }
+}

@@ -15,7 +15,10 @@ const body = Outfit({
 export const metadata: Metadata = {
   title: "Chase Cedar",
   description:
-    "Personal site for Chase Cedar. Projects, markets, languages, sports, and travel.",
+    "Chase Cedar. Vancouver. I help take products from a messy idea to something people actually use.",
+  icons: {
+    icon: [{ url: "/favicon.svg", type: "image/svg+xml" }],
+  },
 };
 
 export default function RootLayout({
