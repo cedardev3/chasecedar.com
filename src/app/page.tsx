@@ -27,7 +27,7 @@ export default function Home() {
             </div>
           </div>
           <h1 className="animate-rise-delay">
-            See it. Build it. Get outside.
+            Think it. Build it. Use it.
           </h1>
           <p className="lede animate-rise-delay-2">
             I help take products from a messy idea to something people
