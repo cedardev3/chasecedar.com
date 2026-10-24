@@ -51,27 +51,26 @@ export default function Home() {
         <h2>I start with how its used, then I make it easier.</h2>
         <p>
           I look at the business first. What people are doing, where it gets
-          stuck, what would actually help. Then I do not leave it as a note.
-          I put a simpler version in people&apos;s hands.
+          stuck, what would actually help. Then put a simpler version in people&apos;s hands.
         </p>
         <p>
           Sometimes that is a new thing from scratch. Sometimes it is a
-          rebuild of something that has been patched for years. Sometimes it
-          is a small tool that sits next to what you already have, so you do
+          rebuild of something that has been patched together for years. Sometimes it&apos;s
+          a small tool that sits next to what you already have, so you do
           not have to rip out the old system to get a win. I like getting my
-          hands dirty, seeing what the product actually needs, and making it
+          hands dirty, seeing what the user actually needs, and making it
           do more with fewer moving parts.
         </p>
         <p>
           I sit with developers, scope and test features, and help ship with
           docs and training. I have run IT, rebuilt brands and websites, and
-          run ads to actually get people in the door. I have taken software
-          from an early mess to something live, and trained people when it
+          run ads to get people in the door. I have taken software
+          from an early concept to something live, and trained people when it
           needed to land.
         </p>
         <p>
-          AI is extra hands, so the looking and the building can happen in
-          the same stretch of work. The public sites below are things I took
+          AI is extra hands, so the research and the building can happen in
+          the same stretch of work. The public sites below are just a few things I took
           all the way through.
         </p>
         <p>
