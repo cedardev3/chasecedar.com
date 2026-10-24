@@ -30,8 +30,7 @@ export default function Home() {
             Think it. Build it. Use it.
           </h1>
           <p className="lede animate-rise-delay-2">
-            I help take products from a messy idea to something people
-            actually use.
+          I help take products from a messy idea to something people actually use.
           </p>
           <div className="hero-actions animate-rise-delay-2">
             <a
